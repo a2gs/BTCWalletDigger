@@ -3,7 +3,7 @@
 
 # Andre Augusto Giannotti Scota (https://sites.google.com/view/a2gs/)
 
-import sys, os
+from sys import exit
 from bitcoinlib.wallets import HDWallet, wallet_delete
 from bitcoinlib.mnemonic import Mnemonic
 
@@ -13,18 +13,18 @@ def main(argv):
 		print(f'{argv[0]} -h\n\tHelp')
 		print(f'{argv[0]} -w <TYPE>\n\tWitness type. One of: \'p2sh-segwit\', \'segwit\' or \'legacy\' (default if -w not defined)')
 		print(f'{argv[0]} -k <SIZE>\n\tKey size. One of: \'128\' (default if -k not defined. 12 words), \'256\' (24 words), \'512\' or \'1024\'')
-		sys.exit(0)
+		exit(0)
 
 	if '-w' in argv:
 		try:
 			witnesstype = argv[argv.index('-w') + 1]
 		except IndexError:
 			print(f'Witness value error: -w without value defined')
-			sys.exit(0)
+			exit(0)
 
 		if witnesstype not in ['p2sh-segwit', 'segwit', 'legacy']:
 			print(f'Witness tpye error: Unknow {witnesstype}')
-			sys.exit(0)
+			exit(0)
 
 	else:
 		witnesstype = 'p2sh-segwit'
@@ -34,11 +34,11 @@ def main(argv):
 			keysize = int(argv[argv.index('-k') + 1])
 		except IndexError:
 			print(f'Key size error: -k without value defined')
-			sys.exit(0)
+			exit(0)
 
 		if keysize not in [128, 256, 512, 1024]:
 			print(f'Key size error: Unknow {keysize}')
-			sys.exit(0)
+			exit(0)
 
 	else:
 		keysize = 256
@@ -60,4 +60,4 @@ def main(argv):
 
 if __name__ == '__main__':
 	main(sys.argv)
-	sys.exit(0)
+	exit(0)
